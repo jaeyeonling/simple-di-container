@@ -2,14 +2,27 @@ language: java
 sudo: false
 
 jdk:
-  - openjdk12
+- openjdk12
 
 before_script:
-  - chmod +x gradlew
+- chmod +x gradlew
 
 script:
-  - ./gradlew check
-  - ./gradlew jacocoTestReport
+- "./gradlew check"
+- "./gradlew jacocoTestReport"
+- "./gradlew sonarqube"
 
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
+- bash <(curl -s https://codecov.io/bash)
+
+env:
+  global:
+    secure: pqroP+x/11NZjM+gUEzhsnhDvSx6Qz7RVkjXj0bmyRfQwwtkJLzU0i05dGIgRttqMgybFFQawEhBdH5geVj/SEQzJdaMZkAvQlPhmhHzZCTeX0iPkh6THULJ9oDZw4U5qA0UJ2MKqBQ7ZxwBf7XCKFlsv+uhNYR+HpHiHTGvCnTyJ8jK1QoZrG0BgI+gMhlsq3ed9NAtOORf8Klq+G85Qq5QQeJFTjSkByvWRoUJDuobl4N5YEdtCrm3LKXWZB0adlIZNkTgaez/zAwJAuuD5yICRME9AZKxqyBq4UYpMI14Z9y4QaLFLudTDSwbZLpKW6GvvLBTaomcCQK/8bTIB8PcZKYhjuX0aOz/60h1XtqAIobPzvwBS45QWUIfHL2aLm2nMe0rwD0468098aiphQsiLxhX1X73zC5pxegMNmq6iPSpc1ZK4oTSJubDqNcZkHdjqt4Bda6L9f9NwsVdsG2GCkVUpQTQjHEkISlzBvHJGbRh9wn24tERjQYrEY3t/IxNwyBkx1IC1W/4MypVYe+SCWSI4ImG1bIpECWfd0+fk7RbzPjWSQB7AKYBKJDv2iW6brt18JvfTszpS/at/yU5lBTAM5R9jK8i0NfgnHpV4nLqEnr36G3dS3FIU5bhIeh0d4WUJOsTauZjcOulYUY3SbZ9Y4W/Qv8uTP7Gl2Y=
+
+dist: trusty
+
+addons:
+  sonarcloud:
+    organization: "jaeyeonling-github"
+    token:
+      secure: "N1r7Gjnehx7qUsffA2TiSk7x9K7BKJt2BUztNWC7MwzpHlSax4iw3SJ70WXppPH8szlWho/T46rcz8XPbJD3/t6+A/MuJImtlQptMTxQ1WEM+qutnY3gKy4ypV+yfAgejhPqbxTL+vPF0uzmWlBC0RR/idOFDtp98TfQ3UW9t7j1B4zGxHGj0hmf0fayNt9rBA+0plomN9xavwavJRIESTjCL+VO1pxBmQaNmnBP6To9E1BLGSDK+huc2pK1VVz7JqQ1C73CS9WwQy1Wlvo6bqaTsvvsfCkW2TLKCeCu9bewTnhwUf4CRa+mWmAIau9HsUDU9tj4/tRFKDSo2PwR33tyr4LafK2gKv33ygZOyh3i7D7OWCKhxMlnb4FZxX+M8pnsS2xfxlwxOMAx4W6pfbBAeymvrPrM4G/fFWv1B65Pj/a21VEbJotlVpoDrDayaPux7PC47aoo7ZIAYufLSDvXLGVpDjH1+63R0ZY42/XSa5QpfvuzJDIAb7Fj8D7Tyepdx9KacJnUFETGEAd4s6qfonOcFPvGHOceOBPNZwz/WW3bgEcWzKWZfga63HVTrOlfZS1toK/2eQlmLimidfHyoCuj0ii0P+SW/5TzYz6g4aaz8ZoVH/r1fxY4WSO0ssccpOnpy7l9KVx5pLZSGHmq3VAmIwjCUpPa4kXqy7I="

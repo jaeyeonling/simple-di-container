@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'idea'
     id 'jacoco'
+    id 'org.sonarqube' version '2.7.1'
 }
 
 group 'com.jaeyeonling'
@@ -46,6 +47,13 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+// Sonarqube
+sonarqube {
+    properties {
+        sonar.projectKey = jaeyeonling_simple-di-container
+    }
+}
 
 test {
     useJUnitPlatform()
