@@ -1,0 +1,81 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id 'jacoco'
+}
+
+group 'com.jaeyeonling'
+version '0.0.1'
+
+ext {
+    javaVersion = JavaVersion.VERSION_12
+
+    versions = [
+            'lombok'        : '1.18.+',
+            'junit-jupiter' : '5.5.+',
+            'junit-platform': '1.5.+',
+            'assertj'       : '3.13.+',
+            'slf4j'         : '1.7.+',
+            'logback'       : '1.2.+',
+            'reflections'   : '0.9.+',
+
+    ]
+}
+
+sourceCompatibility = javaVersion
+targetCompatibility = javaVersion
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+// jacoco
+jacoco {
+    toolVersion = "0.8.4"
+    reportsDir = file("$buildDir/customJacocoReportDir")
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+check.dependsOn jacocoTestReport
+
+test {
+    useJUnitPlatform()
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Lombok
+    compileOnly(group: 'org.projectlombok', name: 'lombok', version: versions['lombok'])
+    annotationProcessor(group: 'org.projectlombok', name: 'lombok', version: versions['lombok'])
+
+    // Junit
+    testImplementation(group: 'org.junit.platform', name: 'junit-platform-commons', version: versions['junit-platform'])
+    testImplementation(group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: versions['junit-jupiter'])
+    testImplementation(group: 'org.junit.jupiter', name: 'junit-jupiter-params', version: versions['junit-jupiter'])
+    testRuntimeOnly(group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: versions['junit-jupiter'])
+
+    // AssertJ
+    testImplementation(group: 'org.assertj', name: 'assertj-core', version: versions['assertj'])
+
+    // Logging
+    implementation(group: 'org.slf4j', name: 'slf4j-api', version: versions['slf4j'])
+    implementation(group: 'org.slf4j', name: 'jcl-over-slf4j', version: versions['slf4j'])
+
+    implementation(group: 'ch.qos.logback', name: 'logback-classic', version: versions['logback'])
+    implementation(group: 'ch.qos.logback', name: 'logback-core', version: versions['logback'])
+
+    // Reflections
+    implementation(group: 'org.reflections', name: 'reflections', version: versions['reflections'])
+}
