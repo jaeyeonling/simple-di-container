@@ -6,7 +6,7 @@ import java.util.Objects;
 
 @UtilityClass
 public class Assert {
-    
+
     public void notNull(final Object object,
                         final String message) {
         if (Objects.isNull(object)) {
