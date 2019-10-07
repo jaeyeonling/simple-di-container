@@ -51,7 +51,7 @@ check.dependsOn jacocoTestReport
 // Sonarqube
 sonarqube {
     properties {
-        sonar.projectKey = jaeyeonling_simple-di-container
+        property 'sonar.projectKey', 'jaeyeonling_simple-di-container'
     }
 }
 
